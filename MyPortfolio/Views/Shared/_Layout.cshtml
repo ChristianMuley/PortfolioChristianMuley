@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - MyPortfolio</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <!-- Load src first (fallback), then built tailwind bundle -->
+    <link rel="stylesheet" href="~/src/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/build/styles.css" asp-append-version="true" />
+
+    <style id="critical-hide">
+        #snapRoot{visibility:hidden}
+        #snapRoot .section .section-inner{visibility:hidden;opacity:0;transform:translateY(-16px)}
+        #snapRoot .panel-head-full{opacity:0}
+    </style>
+</head>
+<body class="@( (ViewData["IsSnapHome"] as bool?) == true ? "is-snap-home" : "" )">
+
+<header>
+    <nav id="scanNav" class="nav-scan fixed top-0 inset-x-0 z-50">
+        <div class="nav-shell">
+            <!-- LEFT spacer (keeps center truly centered) -->
+            <div class="nav-left-spacer" aria-hidden="true"></div>
+
+            <!-- CENTER: Download CV -->
+            <div class="nav-center">
+                <a href="/files/CV.pdf" class="nav-cv-btn" download>
+                    Download CV
+                </a>
+            </div>
+
+            <!-- RIGHT: accordion panels only -->
+            <ul class="nav-right">
+                <li><a href="#A" class="nav-link panel-nav" data-panel="A">About</a></li>
+                <li><a href="#B" class="nav-link panel-nav" data-panel="B">Skills</a></li>
+                <li><a href="#C" class="nav-link panel-nav" data-panel="C">Projects</a></li>
+                <li><a href="#Contact" class="nav-link panel-nav" data-panel="Contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="pb-3">
+    @RenderBody()
+</main>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2025 - MyPortfolio -
+        <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+
+<script type="module" src="~/build/app.js" asp-append-version="true"></script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+
+# JetBrains / Rider
+.idea/
+*.sln.iml
+
+# VS / VSCode
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# --- .NET build outputs ---
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+AnyCPU/
+
+# --- ASP.NET publish outputs ---
+publish/
+*.Publish.xml
+
+# --- Node / Vite ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+.vite/
+
+# If you output built assets into wwwroot via Vite, ignore them too
+wwwroot/dist/
+wwwroot/assets/
+
+# --- Secrets / local config ---
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/*secrets*.json
+
+# --- Runtime data (DON'T commit contact messages) ---
+App_Data/
+app_data/
+**/contact_messages.txt
+**/contact_messages*.txt

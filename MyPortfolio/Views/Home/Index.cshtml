@@ -1,0 +1,381 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    ViewData["IsSnapHome"] = true;
+}
+
+<section id="intro" class="intro-overlay">
+    <div class="intro-card">
+        <div class="text-center px-6">
+            <div class="intro-pill">Portfolio</div>
+            <h1 class="intro-title">Welcome</h1>
+            <p class="intro-sub">Press <span class="intro-key">Enter</span> to continue</p>
+        </div>
+    </div>
+</section>
+
+<main id="snapRoot">
+    <!-- A -->
+    <section id="A" class="section block-a">
+        <div class="panel-head-full">
+            <span class="panel-head-full-title">Intro / About</span>
+        </div>
+        <div class="section-inner relative h-full w-full max-w-none p-0 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <div class="hero-a-bg" aria-hidden="true">
+                    <img class="hero-a-img" src="img/Panel1BG.png" alt="" />
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/55"></div>
+            </div>
+
+            <div class="relative z-10 h-full w-full flex items-center justify-center px-6">
+                <div class="w-full max-w-3xl rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_24px_90px_rgba(0,0,0,0.55)] p-14 text-center">
+                    <div class="text-sm uppercase tracking-[0.25em] text-white/60 font-semibold">Portfolio</div>
+
+                    <h2 class="mt-4 text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+                        Christian Muley
+                    </h2>
+
+                    <div id="panelA">
+                        <p class="mt-3 mb-3 text-white/75 text-lg">Hello and welcome to my humble website!</p>
+                        <p>
+                            Feel free to explore my
+                            <a href="#B" class="hero-a-link">skills</a>
+                            and my
+                            <a href="#C" class="hero-a-link">projects</a>.
+                        </p>
+                        <p>
+                            If any questions should arise, don’t hesitate to
+                            <a href="#Contact" class="hero-a-link">contact me</a>!
+                        </p>
+
+                        <blockquote class="mt-8 text-white/85 text-xl font-semibold leading-snug">
+                            “I ship features, not surprises."
+                        </blockquote>
+                    </div>
+
+                    <div class="mt-10 flex items-center justify-center">
+                        <a href="#B"
+                           class="px-7 py-3 rounded-full bg-white/15 hover:bg-white/20 border border-white/20 text-white font-semibold shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition">
+                            Explore
+                        </a>
+                    </div>
+
+                    <p class="mt-6 text-white/55 text-sm">Made with ❤️ by Christian Muley</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B -->
+    <section id="B" class="section block-b" data-panel-tone="light">
+        <div class="panel-head-full">
+            <span class="panel-head-full-title">Skills</span>
+        </div>
+
+        <div class="section-inner">
+            <div class="skills-accordion" data-skill-accordion>
+                <div class="skills-overlay" aria-hidden="true">
+                    <div class="skills-overlay-title">Skills</div>
+                    <div class="skills-overlay-sub">Scroll / ↑↓ to change focus</div>
+                </div>
+
+                <article class="skill-card is-active" data-skill-card>
+                    <div class="skill-media">
+                        <img class="skill-media-img" src="~/img/MVCCS.png" asp-append-version="true" alt="C# / .NET" loading="lazy" />
+                    </div>
+                    <div class="skill-content">
+                        <div class="skill-kicker">C# / .NET</div>
+                        <h3 class="skill-title">C# / .NET (ASP.NET MVC)</h3>
+                        <p class="skill-desc">
+                            Strong C# fundamentals applied to real MVC apps: routing, Razor views, DI-ready structure, and maintainable patterns.
+                        </p>
+                        <ul class="skill-bullets">
+                            <li>OOP, interfaces, SOLID, LINQ</li>
+                            <li>ASP.NET MVC + Razor + routing</li>
+                            <li>Async patterns + clean structure</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="skill-card" data-skill-card>
+                    <div class="skill-media">
+                        <img class="skill-media-img" src="~/img/JavaScript.png" asp-append-version="true" alt="Javascript" loading="lazy" />
+                    </div>
+                    <div class="skill-content">
+                        <div class="skill-kicker">Frontend</div>
+                        <h3 class="skill-title">JavaScript</h3>
+                        <p class="skill-desc">DOM work, async flows, UI behavior, and clean modular client-side logic.</p>
+                        <ul class="skill-bullets">
+                            <li>HTML/CSS (responsive UI)</li>
+                            <li>DOM + events + async/await</li>
+                            <li>Vite + Tailwind (and Bootstrap when needed)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="skill-card" data-skill-card>
+                    <div class="skill-media">
+                        <img class="skill-media-img" src="~/img/JavaAI2.png" asp-append-version="true" alt="Java" loading="lazy" />
+                    </div>
+                    <div class="skill-content">
+                        <div class="skill-kicker">Backend</div>
+                        <h3 class="skill-title">Java</h3>
+                        <p class="skill-desc">Built an AI-powered translator project. Solid OOP fundamentals, API integration, and clean structure.</p>
+                        <ul class="skill-bullets">
+                            <li>REST API integration</li>
+                            <li>Clean OOP structure</li>
+                            <li>Project-driven learning</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="skill-card" data-skill-card>
+                    <div class="skill-media">
+                        <img class="skill-media-img" src="~/img/Unity.png" asp-append-version="true" alt="Unity" loading="lazy" />
+                    </div>
+                    <div class="skill-content">
+                        <div class="skill-kicker">Game Dev</div>
+                        <h3 class="skill-title">Unity</h3>
+                        <p class="skill-desc">Gameplay systems, performance-minded setup, and a clean data-driven approach.</p>
+                        <ul class="skill-bullets">
+                            <li>URP workflows</li>
+                            <li>Pooling & budgets</li>
+                            <li>Systems-first design</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="skill-card" data-skill-card>
+                    <div class="skill-media">
+                        <img class="skill-media-img" src="~/img/AdobeSuite2.png" asp-append-version="true" alt="Adobe Suite" loading="lazy" />
+                    </div>
+                    <div class="skill-content">
+                        <div class="skill-kicker">Creative</div>
+                        <h3 class="skill-title">Adobe Suite</h3>
+                        <p class="skill-desc">Visual polish for branding, motion, and presentation with a modern workflow.</p>
+                        <ul class="skill-bullets">
+                            <li>Photoshop comps</li>
+                            <li>Premiere edits</li>
+                            <li>After Effects motion</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- C -->
+    <section id="C" class="section block-c">
+        <div class="panel-head-full">
+            <span class="panel-head-full-title">Projects</span>
+        </div>
+        <div class="section-inner">
+            <h2 class="section-title">Projects</h2>
+            <p class="section-sub">Click a project to open the story drawer (screens + narrative + proof).</p>
+
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+    <!-- Project card -->
+    <button type="button"
+            class="proj-card text-left rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-md p-5 shadow transition"
+            data-project-card
+            data-project="sales-admin">
+        <div class="h-44 rounded-xl overflow-hidden bg-black/40 border border-white/10">
+            <img src="~/img/PrulariaHero.png"
+                 class="w-full h-full object-cover"
+                 alt="Sales Admin Portal" loading="lazy">
+        </div>
+
+        <div class="mt-4">
+            <div class="text-white font-semibold text-lg">Sales Admin Portal</div>
+            <div class="text-white/70 text-sm mt-1">Internal MVC web app for sales teams to manage clients, orders, and sales data.</div>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+                <span class="proj-tag">C#</span>
+                <span class="proj-tag">ASP.NET MVC</span>
+                <span class="proj-tag">EF Core</span>
+                <span class="proj-tag">SQL</span>
+                <span class="proj-tag">Scrum</span>
+            </div>
+        </div>
+    </button>
+
+    <button type="button"
+            class="proj-card text-left rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-md p-5 shadow transition"
+            data-project-card
+            data-project="portfolio-accordion">
+        <div class="h-44 rounded-xl overflow-hidden bg-black/40 border border-white/10">
+            <img src="~/img/PortfolioThumb.png"
+                 class="w-full h-full object-cover"
+                 alt="Portfolio Website — Interactive Accordion UI" loading="lazy">
+        </div>
+
+        <div class="mt-4">
+            <div class="text-white font-semibold text-lg">Portfolio — Interactive Accordion UI</div>
+            <div class="text-white/70 text-sm mt-1">Portfolio built for fast scanning: accordion navigation + skill gallery + proof-first case studies.</div>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+                <span class="proj-tag">HTML</span>
+                <span class="proj-tag">Tailwind</span>
+                <span class="proj-tag">JS</span>
+                <span class="proj-tag">Vite</span>
+                <span class="proj-tag">UX</span>
+            </div>
+        </div>
+    </button>
+
+    <button type="button"
+            class="proj-card text-left rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-md p-5 shadow transition"
+            data-project-card
+            data-project="java-aggregator">
+        <div class="h-44 rounded-xl overflow-hidden bg-black/40 border border-white/10">
+            <img src="~/img/projects/aggregator-thumb.png"
+                 class="w-full h-full object-cover"
+                 alt="Price Aggregator & Opportunity Scanner" loading="lazy">
+        </div>
+
+        <div class="mt-4">
+            <div class="text-white font-semibold text-lg">Price Aggregator & Opportunity Scanner</div>
+            <div class="text-white/70 text-sm mt-1">Java tool aggregating marketplace data + OCR-assisted scanning to highlight demand-driven opportunities.</div>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+                <span class="proj-tag">Java</span>
+                <span class="proj-tag">REST</span>
+                <span class="proj-tag">JSON</span>
+                <span class="proj-tag">OCR</span>
+            </div>
+        </div>
+    </button>
+
+    <button type="button"
+            class="proj-card text-left rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-md p-5 shadow transition"
+            data-project-card
+            data-project="unity-pra">
+        <div class="h-44 rounded-xl overflow-hidden bg-black/40 border border-white/10">
+            <img src="~/img/projects/pra-thumb.png"
+                 class="w-full h-full object-cover"
+                 alt="PRA Prototype — Parkour + Spell System" loading="lazy">
+        </div>
+
+        <div class="mt-4">
+            <div class="text-white font-semibold text-lg">PRA Prototype — Parkour + Spell System</div>
+            <div class="text-white/70 text-sm mt-1">Fast first-person traversal + data-driven spell composition + custom URP visuals, built with performance in mind.</div>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+                <span class="proj-tag">Unity</span>
+                <span class="proj-tag">C#</span>
+                <span class="proj-tag">URP</span>
+                <span class="proj-tag">Shaders</span>
+            </div>
+        </div>
+    </button>
+</div>
+
+        </div>
+    </section>
+
+    <!-- Shared lightbox dialog -->
+    <dialog id="lightbox" class="p-0 bg-transparent" style="border:none; width:100%; max-width:none;">
+        <div class="fixed inset-0 grid place-items-center p-4">
+            <div class="relative">
+                <img id="lightboxImage" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-xl" alt="">
+                <button type="button" data-lb="close" class="absolute top-2 right-2 rounded-full bg-black/60 text-white px-3 py-1 text-sm">✕</button>
+                <button type="button" data-lb="prev" class="absolute left-0 top-1/2 -translate-y-1/2 rounded-full bg-black/60 text-white px-3 py-2">‹</button>
+                <button type="button" data-lb="next" class="absolute right-0 top-1/2 -translate-y-1/2 rounded-full bg-black/60 text-white px-3 py-2">›</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="projectDrawer" class="proj-drawer" aria-label="Project details">
+        <div class="proj-drawer-shell">
+            <header class="proj-drawer-head">
+                <div class="min-w-0">
+                    <div id="pdTitle" class="proj-drawer-title">Project Title</div>
+                    <div id="pdTags" class="proj-drawer-tags"></div>
+                </div>
+
+                <div class="proj-drawer-actions">
+                    <a id="pdLive" class="proj-drawer-btn" href="#" target="_blank" rel="noopener" hidden>Live</a>
+                    <a id="pdGit" class="proj-drawer-btn" href="#" target="_blank" rel="noopener" hidden>GitHub</a>
+                    <a id="pdVideo" class="proj-drawer-btn" href="#" target="_blank" rel="noopener" hidden>Video</a>
+
+                    <button type="button" id="pdClose" class="proj-drawer-close" aria-label="Close">✕</button>
+                </div>
+            </header>
+
+            <div class="proj-drawer-body">
+                <div id="pdSnap" class="proj-drawer-snap" aria-label="Project slides"></div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Contact (final panel) -->
+    <section id="Contact" class="section block-contact">
+        <div class="panel-head-full">
+            <span class="panel-head-full-title">Contact</span>
+        </div>
+
+        <div class="section-inner">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-sub">Download my CV or send me a message.</p>
+
+            <div class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="rounded-2xl border border-slate-200 bg-white/80 shadow p-6">
+                    <h3 class="text-2xl font-bold tracking-tight text-slate-900">Download CV</h3>
+                    <p class="mt-2 text-slate-600">PDF overview of skills, projects, and experience.</p>
+
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="/files/CV.pdf"
+                           class="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
+                           download>
+                            Download CV (PDF)
+                        </a>
+
+                        <a href="mailto:your@email.com"
+                           class="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 transition">
+                            Email me directly
+                        </a>
+                    </div>
+
+                    <p class="mt-4 text-sm text-slate-500">
+                        Put your PDF at <code class="px-2 py-1 rounded bg-slate-100">wwwroot/files/CV.pdf</code>.
+                    </p>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 bg-white/80 shadow p-6">
+                    <h3 class="text-2xl font-bold tracking-tight text-slate-900">Contact form</h3>
+                    <p class="mt-2 text-slate-600">Front-end only for now (we’ll wire the real sender later).</p>
+
+                    <form id="contactForm" class="mt-6 space-y-4" novalidate>
+                        <div>
+                            <label for="cfName" class="block text-sm font-semibold text-slate-700">Name</label>
+                            <input id="cfName" name="name" type="text" autocomplete="name" required maxlength="80"
+                                   class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/30" />
+                        </div>
+
+                        <div>
+                            <label for="cfEmail" class="block text-sm font-semibold text-slate-700">Email</label>
+                            <input id="cfEmail" name="email" type="email" autocomplete="email" required maxlength="120"
+                                   class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/30" />
+                        </div>
+
+                        <div>
+                            <label for="cfMessage" class="block text-sm font-semibold text-slate-700">Message</label>
+                            <textarea id="cfMessage" name="message" rows="6" required maxlength="2000"
+                                      class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/30"></textarea>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <button id="cfSendBtn" type="submit"
+                                    class="inline-flex items-center justify-center rounded-xl px-6 py-3 font-semibold bg-slate-900 text-white hover:bg-slate-800 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                Send
+                            </button>
+
+                            <p id="contactStatus" class="text-sm text-slate-600" role="status" aria-live="polite"></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
