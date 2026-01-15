@@ -2,7 +2,7 @@ name: Build and deploy to Azure Web App
 
 on:
   push:
-    branches: [ "master" ]  # change to main if your default branch is main
+    branches: ["master"]
   workflow_dispatch:
 
 env:
@@ -25,16 +25,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-		
+
       - name: Install frontend deps
         working-directory: MyPortfolio
-
         run: npm ci
 
       - name: Build frontend
+        working-directory: MyPortfolio
         run: npm run build
 
- 
       - name: Build & publish .NET app
         run: dotnet publish MyPortfolio/MyPortfolio.csproj -c Release -o publish
 
