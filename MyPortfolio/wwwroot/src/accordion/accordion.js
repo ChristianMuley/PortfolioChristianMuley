@@ -4,7 +4,7 @@ import { raf } from '../utils/timing.js'
 import { canScrollVert } from '../utils/scroll.js'
 import { panelIndexFromHash, writePanelToUrl } from './url.js'
 import { initMediaLightbox } from '../lightbox/mediaLightbox.js'
-import {runHeroTypewriterOnce} from "../Intro/typewriter.js";
+import {runHeroTypewriterOnce} from "../intro/typewriter.js";
 
 export function initAccordion({
                                   gsap,
