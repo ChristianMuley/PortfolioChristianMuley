@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: your-app-service-name-here
+  AZURE_WEBAPP_NAME: ChristianMuley
 
 jobs:
   build-and-deploy:
