@@ -193,17 +193,19 @@ body.is-snap-home .section.is-current .section-inner{
 }
 
 .nav-cv-btn:hover{
-    transform: translateY(-2px) scale(1.02);
-    filter: brightness(1.06);
+    transform: translateY(-3px) scale(1.03);
+    filter: brightness(1.10) saturate(1.05);
     box-shadow:
-            0 28px 70px rgba(0,0,0,0.48),
-            0 16px 34px rgba(56,189,248,0.30),
-            inset 0 1px 0 rgba(255,255,255,0.30);
+            0 34px 90px rgba(0,0,0,0.55),
+            0 18px 38px rgba(56,189,248,0.38),
+            0 0 0 1px rgba(255,255,255,0.10),
+            inset 0 1px 0 rgba(255,255,255,0.34);
 }
 
+
 .nav-cv-btn:hover::before{
-    opacity: 0.9;
-    filter: blur(14px);
+    opacity: 1;
+    filter: blur(16px);
 }
 
 .nav-cv-btn:active{
@@ -266,9 +268,22 @@ footer.footer{
 
     display:flex;
     align-items:center;
+    
+    padding-inline:1.5rem;
+
     border-top:1px solid rgba(255,255,255,.05);
 }
-footer.footer a{ color:#fff; }
+
+footer.footer a{
+    color:rgba(56,189,248,.78);
+    text-decoration:none;
+    transition:color .18s ease, text-shadow .18s ease;
+}
+footer.footer a:hover{
+    color:rgba(56,189,248,.95);
+    text-shadow:0 0 10px rgba(56,189,248,.22);
+}
+
 
 /* =========================
    Snap root layout
@@ -575,6 +590,19 @@ body.is-snap-home #B .skill-card:not(.is-active) .skill-media-img{
     filter:brightness(.2) saturate(.6) contrast(.95);
     opacity:.7;
 }
+/* Hover polish: inactive cards get color back + subtle glow */
+body.is-snap-home #B .skill-card:not(.is-active):hover{
+    box-shadow:
+            0 18px 50px rgba(2,6,23,.22),
+            0 0 0 1px rgba(34,211,238,.22);
+    transform: translateY(-2px);
+}
+
+body.is-snap-home #B .skill-card:not(.is-active):hover .skill-media-img{
+    filter:brightness(.55) saturate(1.05) contrast(1.05);
+    opacity:.9;
+}
+
 
 body.is-snap-home #B .skill-card.is-active .skill-media-img{
     opacity:1;
@@ -1438,6 +1466,38 @@ body.is-snap-home .nav-cv-btn{ display:inline-flex; }
         pointer-events:none;
     }
 }
+
+/* =========================
+   Nav link glow by panel (hover only)
+   ========================= */
+#scanNav .panel-nav[data-panel="A"]{ --nav-glow: rgba(255,43,43,.55); }
+#scanNav .panel-nav[data-panel="B"]{ --nav-glow: rgba(34,211,238,.55); }
+#scanNav .panel-nav[data-panel="C"]{ --nav-glow: rgba(57,255,20,.50); }
+#scanNav .panel-nav[data-panel="Contact"]{ --nav-glow: rgba(192,38,255,.55); }
+
+#scanNav .panel-nav{
+    text-shadow:none;
+    filter:none;
+    transition:
+            color .15s ease,
+            transform .65s,
+            text-shadow .35s ease,
+            filter .35s ease;
+}
+
+#scanNav .panel-nav:hover{
+    text-shadow:
+            0 0 10px var(--nav-glow),
+            0 0 22px color-mix(in srgb, var(--nav-glow) 70%, transparent);
+    filter: drop-shadow(0 0 10px var(--nav-glow));
+}
+
+#scanNav .panel-nav.is-active,
+#scanNav .panel-nav.is-active:hover{
+    text-shadow:none !important;
+    filter:none !important;
+}
+
 
 /* =========================
    Navbar — Mobile layout fix (keep one row)

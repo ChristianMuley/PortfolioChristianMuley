@@ -82,6 +82,17 @@ export function initAccordion({
             if (!inner) return
 
             if (i === activeIdx) {
+                const activeId = sections[activeIdx]?.id
+                
+                if (activeId === 'B') {
+                    inner.classList.remove('panel-scroll')
+                    inner.style.overflowY = 'hidden'
+                    inner.style.overflowX = 'hidden'
+                    inner.style.maxHeight = ''
+                    inner.style.paddingBottom = ''
+                    return
+                }
+
                 inner.classList.add('panel-scroll')
                 inner.style.overflowY = 'auto'
                 inner.style.overflowX = 'hidden'
@@ -463,14 +474,65 @@ export function initAccordion({
     })
 
     let startY = null
-    window.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY }, { passive: true })
-    window.addEventListener('touchmove', (e) => {
-        if (startY == null || lock) return
-        const dy = startY - e.touches[0].clientY
-        if (canScrollVert(e.target, dy)) return
-        if (Math.abs(dy) > 40) { dy > 0 ? goNext() : goPrev(); startY = null }
+    let startX = null
+
+    window.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY
+        startX = e.touches[0].clientX
     }, { passive: true })
-    window.addEventListener('touchend', () => { startY = null }, { passive: true })
+
+    window.addEventListener('touchmove', (e) => {
+        if (startY == null || lock || uiState.modalOpen) return
+
+        const y = e.touches[0].clientY
+        const x = e.touches[0].clientX
+        const dy = startY - y
+        const dx = startX - x
+
+        // ignore mostly-horizontal swipes (don’t fight horizontal gestures)
+        if (Math.abs(dx) > Math.abs(dy)) return
+
+        const currentId = sections[current]?.id
+
+        // ✅ On Skills panel: swipe cycles skills cards first
+        if (currentId === 'B' && skillsGate) {
+            if (Math.abs(dy) > 40) {
+                // allow preventDefault
+                e.preventDefault()
+
+                const consumed = skillsGate.consumeWheel(dy, e)
+                if (consumed) {
+                    // reset anchor so one continuous swipe can advance multiple cards
+                    startY = y
+                    startX = x
+                    return
+                }
+            }
+        }
+        
+        const innerScroll = sections[current]?.querySelector('.section-inner.panel-scroll')
+        if (innerScroll) {
+            const canScrollDown = innerScroll.scrollTop + innerScroll.clientHeight < innerScroll.scrollHeight - 2
+            const canScrollUp = innerScroll.scrollTop > 2
+
+            // dy > 0 means finger moved up (scrolling down)
+            if (dy > 0 && canScrollDown) return
+            if (dy < 0 && canScrollUp) return
+        }
+
+        if (Math.abs(dy) > 40) {
+            e.preventDefault()
+            dy > 0 ? goNext() : goPrev()
+            startY = null
+            startX = null
+        }
+    }, { passive: false })
+
+    window.addEventListener('touchend', () => {
+        startY = null
+        startX = null
+    }, { passive: true })
+
 
     // Panel body deep-links (About panel + any in-panel links like #B/#C/#Contact)
     document.addEventListener('click', (e) => {
@@ -529,6 +591,7 @@ export function initAccordion({
 
         document.querySelectorAll('#scanNav a[href]').forEach(a => {
             const on = a.getAttribute('href') === id
+            a.classList.toggle('is-active', on)
             a.style.background = 'transparent'
             a.style.borderRadius = '0'
             a.style.transition = 'color .06s linear, transform .65s'
