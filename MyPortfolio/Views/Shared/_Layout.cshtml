@@ -18,7 +18,8 @@
         #snapRoot .panel-head-full{opacity:0}
     </style>
 </head>
-<body class="@( (ViewData["IsSnapHome"] as bool?) == true ? "is-snap-home" : "" )">
+<body class="@( (ViewData["IsSnapHome"] as bool?) == true ? "is-snap-home" : "" ) @(ViewData["BodyClass"] as string)">
+
 
 <header>
     <nav id="scanNav" class="nav-scan fixed top-0 inset-x-0 z-50">
@@ -26,12 +27,19 @@
             <!-- LEFT spacer (keeps center truly centered) -->
             <div class="nav-left-spacer" aria-hidden="true"></div>
 
-            <!-- CENTER: Download CV -->
+            <!-- CENTER: CV (home pages) / Home (privacy page) -->
             <div class="nav-center">
+                <!-- Shown only on Privacy page via CSS -->
+                <a class="nav-home-link" href="/#A">Home</a>
+
+                <!-- Shown on normal pages via CSS -->
                 <a href="/files/CV.pdf" class="nav-cv-btn" download>
-                    Download CV
+                    <span class="nav-cv-text nav-cv-text--long">Download CV</span>
+                    <span class="nav-cv-text nav-cv-text--short">CV</span>
+                    <span class="nav-cv-icon" aria-hidden="true">⬇</span>
                 </a>
             </div>
+
 
             <!-- RIGHT: accordion panels only -->
             <ul class="nav-right">

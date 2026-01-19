@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 /* =========================
+   Global safety net (responsive defaults)
+   ========================= */
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+}
+
+img,
+video{
+    max-width:100%;
+    height:auto;
+    display:block;
+}
+
+/* =========================
    Variables
    ========================= */
 :root{
@@ -195,6 +211,37 @@ body.is-snap-home .section.is-current .section-inner{
     filter: brightness(1.02);
 }
 
+/* CV button label swapping (prevents "Download CV" + "CV" showing together) */
+.nav-cv-text--short{ display:none; }
+.nav-cv-icon{ display:none; }
+
+/* Small screens: show short label + icon stacked */
+@media (max-width: 720px){
+    body.is-snap-home .nav-cv-btn{
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:center;
+        gap:.2rem;
+
+        padding:.55rem .85rem;
+        min-height:40px;
+        border-radius:16px;
+    }
+
+    body.is-snap-home .nav-cv-text--long{ display:none; }
+    body.is-snap-home .nav-cv-text--short{
+        display:block;
+        line-height:1;
+    }
+    body.is-snap-home .nav-cv-icon{
+        display:block;
+        opacity:.85;
+        line-height:1;
+        transform:translateY(-1px);
+    }
+}
+
+
 /* Active panel scrolling (small screens fix) */
 .section-inner.panel-scroll{
     overflow-y: auto !important;
@@ -202,8 +249,6 @@ body.is-snap-home .section.is-current .section-inner{
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
 }
-
-
 
 /* =========================
    Footer
@@ -238,6 +283,13 @@ body.is-snap-home #snapRoot{
 
     display:flex;
     flex-direction:column;
+}
+
+/* Mobile browser fix: use dynamic viewport units when supported */
+@supports (height: 100dvh){
+    body.is-snap-home #snapRoot{
+        height:calc(100dvh - var(--header-h) - var(--footer-h));
+    }
 }
 
 /* =========================
@@ -646,6 +698,63 @@ body.is-snap-home #B .skill-bullets{
 }
 
 /* =========================
+   Panel B (Skills) — Mobile friendly Warframe slider
+   ========================= */
+@media (max-width: 768px){
+    /* Stack slides vertically on mobile */
+    body.is-snap-home #B .skills-accordion{
+        flex-direction:column;
+        height:100%;
+        overflow:hidden; /* keep it clean */
+    }
+
+    /* Make inactive slides small "tabs" */
+    body.is-snap-home #B .skill-card{
+        flex:0 0 34px;            /* inactive height (tweak this) */
+        border-left:0;
+        border-top:1px solid rgba(255,255,255,.10);
+        transform:none !important; /* stop hover lift on touch */
+    }
+    body.is-snap-home #B .skill-card:first-child{
+        border-top:0;
+    }
+
+    /* Active slide takes the remaining space (usually ~90%+) */
+    body.is-snap-home #B .skill-card.is-active{
+        flex:1 1 auto;
+    }
+
+    /* No text at all when inactive */
+    body.is-snap-home #B .skill-card:not(.is-active) .skill-content{
+        opacity:0 !important;
+        visibility:hidden !important;
+        transform:translateY(12px) !important;
+        pointer-events:none !important;
+    }
+    body.is-snap-home #B .skill-card:not(.is-active) .skill-title,
+    body.is-snap-home #B .skill-card:not(.is-active) .skill-kicker,
+    body.is-snap-home #B .skill-card:not(.is-active) .skill-desc,
+    body.is-snap-home #B .skill-card:not(.is-active) .skill-bullets{
+        display:none !important;
+    }
+
+    /* Keep the active content readable and scrollable if needed */
+    body.is-snap-home #B .skill-card.is-active .skill-content{
+        padding:1rem 1rem 1.1rem;
+        max-height:70%;
+        overflow:auto;
+        -webkit-overflow-scrolling:touch;
+        overscroll-behavior:contain;
+    }
+
+    /* Optional: reduce overlay clutter on mobile */
+    body.is-snap-home #B .skills-overlay{
+        display:none;
+    }
+}
+
+
+/* =========================
    Panel C (Projects)
    ========================= */
 body.is-snap-home #C .section-inner{
@@ -842,7 +951,12 @@ body.is-snap-home #C .section-inner{
     backdrop-filter:blur(18px);
     box-shadow:0 30px 120px rgba(0,0,0,.65);
     overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
 }
+
+
 
 .proj-drawer-head{
     position:sticky;
@@ -907,7 +1021,8 @@ body.is-snap-home #C .section-inner{
 .proj-drawer-close:hover{ background:rgba(255,255,255,.12); }
 
 .proj-drawer-body{
-    height:calc(100% - 72px);
+    flex:1 1 auto;
+    min-height:0;
     overflow:hidden;
 }
 
@@ -920,17 +1035,29 @@ body.is-snap-home #C .section-inner{
 
 .proj-drawer-step{
     scroll-snap-align:start;
-    height:100%;
+    min-height:100%;
+    height:auto;
 }
 
 .proj-drawer-grid{
-    height:100%;
+    min-height:100%;
+    height:auto;
+
     display:grid;
-    grid-template-columns:60% 40%;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
     gap:1.25rem;
     padding:1.25rem;
-    align-items:stretch;
+    align-items:start;
 }
+
+.proj-drawer-story{
+    min-width:0;
+    overflow:visible;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+    color:rgba(255,255,255,.82);
+}
+
 
 .proj-drawer-proof{
     height:100%;
@@ -951,11 +1078,6 @@ body.is-snap-home #C .section-inner{
     cursor:zoom-in;
 }
 
-.proj-drawer-story{
-    min-width:0;
-    color:rgba(255,255,255,.82);
-}
-
 .proj-drawer-story h3{
     color:#fff;
     font-weight:800;
@@ -973,11 +1095,38 @@ body.is-snap-home #C .section-inner{
 }
 .proj-drawer-story li::marker{ color:rgba(255,255,255,.92); }
 
-@media (max-width:900px){
-    .proj-drawer{ width:min(980px, 96vw); height:min(900px, 90vh); }
-    .proj-drawer-grid{ grid-template-columns:1fr; }
-    .proj-drawer-img{ height:44vh; object-fit:cover; }
+/* Stack earlier (tablets / smaller laptops) */
+@media (max-width:1100px){
+    .proj-drawer-grid{
+        grid-template-columns:1fr;
+        align-content:start;
+    }
+
+    /* Make image behave on stacked layout */
+    .proj-drawer-proof{ height:auto; }
+    .proj-drawer-img{
+        height:auto;
+        max-height:42dvh;
+        object-fit:contain;
+    }
 }
+
+/* Phones: disable snap so long content never "fights" the layout */
+@media (max-width:900px){
+    .proj-drawer{
+        width:96vw;
+        height:min(92dvh, 920px);
+    }
+
+    .proj-drawer-snap{ scroll-snap-type:none; }
+    .proj-drawer-step{ scroll-snap-align:none; }
+
+    .proj-drawer-grid{
+        padding:1rem;
+        gap:1rem;
+    }
+}
+
 
 /* =========================
    Lightbox
@@ -1091,6 +1240,276 @@ body.is-snap-home :is(
     margin-top: 0 !important;
     transform: translateY(0) !important;
 }
+
+/* =========================
+   Privacy Page
+   ========================= */
+.privacy{
+    color:#000;
+    background:transparent;
+    width:min(920px, 100% - 2rem);
+    margin:0 auto;
+
+   
+    padding-top:calc(var(--header-h) + 1.5rem);
+
+    /* keep your bottom spacing */
+    padding-bottom:4rem;
+}
+
+
+.privacy__header{
+    padding-bottom:1rem;
+    border-bottom:1px solid rgba(0,0,0,.12);
+    margin-bottom:1.5rem;
+}
+
+.privacy__title{
+    font-size:clamp(2rem, 3vw, 2.75rem);
+    line-height:1.1;
+    font-weight:900;
+    letter-spacing:-0.02em;
+    margin:0;
+}
+
+.privacy__meta{
+    margin:.6rem 0 0;
+    font-size:.95rem;
+    opacity:.85;
+}
+
+.privacy__section{
+    margin:1.25rem 0;
+}
+
+.privacy__section h2{
+    font-size:1.25rem;
+    line-height:1.2;
+    font-weight:800;
+    margin:0 0 .5rem;
+}
+
+.privacy__section p{
+    margin:.5rem 0;
+    line-height:1.6;
+    font-size:1rem;
+}
+
+.privacy__section ul{
+    margin:.5rem 0 0 1.1rem;
+    padding:0;
+}
+
+.privacy__section li{
+    margin:.45rem 0;
+    line-height:1.6;
+}
+
+.privacy a{
+    color:#000;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.privacy__note{
+    margin-top:.75rem;
+    padding:.85rem 1rem;
+    border-left:4px solid rgba(0,0,0,.25);
+    background:rgba(0,0,0,.04);
+    border-radius:.75rem;
+}
+
+@media (max-width: 640px){
+    .privacy{
+        padding:1.6rem 0 3rem;
+    }
+    .privacy__section h2{
+        font-size:1.15rem;
+    }
+}
+
+/* =========================
+   Shared navbar modes (Home vs Privacy)
+   ========================= */
+
+/* Home link is hidden by default */
+.nav-home-link{ display:none; }
+
+/* CV button should only exist on the home snap page */
+.nav-cv-btn{ display:none; }
+body.is-snap-home .nav-cv-btn{ display:inline-flex; }
+
+/* Privacy page: show only centered Home, hide everything else */
+.privacy-page .nav-left-spacer,
+.privacy-page .nav-right,
+.privacy-page .nav-cv-btn{
+    display:none !important;
+}
+
+.privacy-page .nav-center{
+    justify-self:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.privacy-page .nav-home-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    color:rgba(255,255,255,.92);
+    font-weight:800;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+
+    padding:.55rem .95rem;
+    border-radius:.75rem;
+
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+
+    transition:transform .16s ease, background .16s ease, border-color .16s ease;
+}
+
+.privacy-page .nav-home-link:hover{
+    background:rgba(255,255,255,.12);
+    border-color:rgba(255,255,255,.22);
+    transform:translateY(-1px);
+}
+
+/* =========================
+   Scrollbar: hide chrome, keep scroll
+   ========================= */
+.section-inner.panel-scroll,
+.proj-drawer-snap,
+#lightbox .lb-shell{
+    -ms-overflow-style:none;   /* IE/Edge legacy */
+    scrollbar-width:none;      /* Firefox */
+}
+
+.section-inner.panel-scroll::-webkit-scrollbar,
+.proj-drawer-snap::-webkit-scrollbar,
+#lightbox .lb-shell::-webkit-scrollbar{
+    width:0;
+    height:0;
+}
+
+/* =========================
+   Navbar: compact + transparent on small screens
+   ========================= */
+@media (max-width: 760px){
+    :root{ --header-h: 56px; }
+
+    .nav-shell{
+        height:var(--header-h);
+        padding-inline:.75rem;
+        gap:.5rem;
+
+        /* "no background" */
+        background:transparent;
+        border-bottom:none;
+        box-shadow:none;
+        backdrop-filter:none;
+        -webkit-backdrop-filter:none;
+    }
+
+    .nav-right{
+        gap:.35rem;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+    }
+
+    .nav-link{
+        padding:.4rem .55rem;
+        font-size:.85rem;
+        border-radius:.6rem;
+        text-shadow: 0 2px 10px rgba(0,0,0,.55);
+    }
+
+    /* Hide/show animation hook */
+    #scanNav{
+        will-change: transform;
+        transition: opacity .4s ease, transform .22s ease;
+    }
+    #scanNav.nav-min-hidden{
+        transform: translateY(-110%);
+        pointer-events:none;
+    }
+}
+
+/* =========================
+   Navbar — Mobile layout fix (keep one row)
+   ========================= */
+@media (max-width: 760px){
+    :root{ --header-h: 56px; }
+
+    /* Switch grid -> flex so items stop wrapping into rows */
+    .nav-shell{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        height:var(--header-h);
+
+        padding-inline:.75rem;
+        gap:.6rem;
+
+        /* your "modern no-background" look */
+        background:transparent;
+        border-bottom:none;
+        box-shadow:none;
+        backdrop-filter:none;
+        -webkit-backdrop-filter:none;
+    }
+
+    /* Remove spacer behavior on mobile */
+    .nav-left-spacer{ display:none !important; }
+
+    /* CV button sits left */
+    .nav-center{
+        order:0;
+        justify-self:auto;
+        flex:0 0 auto;
+        display:flex;
+        justify-content:flex-start;
+    }
+
+    /* Links stay right, in one line */
+    .nav-right{
+        order:1;
+        justify-self:auto;
+
+        display:flex;
+        flex-wrap:nowrap;              /* IMPORTANT: no wrapping */
+        align-items:center;
+        justify-content:flex-end;
+
+        gap:.35rem;                    /* tighter spacing */
+        min-width:0;
+        overflow-x:auto;               /* if it *must* overflow, scroll horizontally */
+        -ms-overflow-style:none;
+        scrollbar-width:none;
+    }
+    .nav-right::-webkit-scrollbar{ width:0; height:0; }
+
+    /* Tighten links */
+    .nav-link{
+        padding:.38rem .55rem;
+        font-size:.82rem;
+        border-radius:.6rem;
+        white-space:nowrap;
+    }
+
+    /* Make the CV button compact on mobile (your CV+icon stack) */
+    body.is-snap-home .nav-cv-btn{
+        padding:.5rem .7rem;
+        min-height:40px;
+        border-radius:16px;
+    }
+}
+
+
 
 /* =========================
    Reduce motion

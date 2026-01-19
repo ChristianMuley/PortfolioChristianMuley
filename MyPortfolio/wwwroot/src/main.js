@@ -7,7 +7,6 @@ import { preHideNonFirst, enforceOnlyCurrentVisible } from './accordion/visibili
 import { panelIndexFromHash } from './accordion/url.js'
 
 import { markHeroTypewriterTargets, runHeroTypewriterOnce } from './intro/typewriter.js'
-import { initIntroFlow } from './intro/introFlow.js'
 
 import { initAccordion } from './accordion/accordion.js'
 import { setupAdobeGallery } from './lightbox/adobeGallery.js'
@@ -16,15 +15,11 @@ import { initProjectDrawer } from './projects/projectDrawer.js'
 import { initContactForm } from './contact/contactForm.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-    const intro = document.getElementById('intro')
-    const introContent =
-        document.querySelector('#introControlsMount') ||
-        document.querySelector('#intro .text-center') ||
-        document.querySelector('#intro')
+    // Kill/remove intro overlay if it exists in markup
+    document.getElementById('intro')?.remove()
 
     const snapRoot = document.getElementById('snapRoot')
     const scanNav = document.getElementById('scanNav')
-    const replayLink = document.getElementById('replayIntro')
     const sections = Array.from(document.querySelectorAll('.section'))
     const header = document.querySelector('header')
     const footer = document.querySelector('footer.footer')
@@ -43,6 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return
     }
 
+    // Ensure snap root is visible (intro used to handle this)
+    snapRoot.style.visibility = 'visible'
+    snapRoot.style.clipPath = 'none'
+    document.getElementById('critical-hide')?.remove()
+
+    // Keep snap behavior consistent with previous flow
+    document.body.style.overflow = 'hidden'
+
     // panel tone alternation stays as-is
     sections.forEach((sec, i) => {
         const tone = (i % 2 === 0) ? 'dark' : 'light'
@@ -59,37 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectDrawer(uiState)
     initContactForm()
 
-    // intro overlay (cookie skip + enter animation) -> calls initAccordion when it’s time
-    initIntroFlow({
+    // Make sure only the intended start panel is visible (important if you deep-link to #B/#C/etc)
+    enforceOnlyCurrentVisible(sections, initialPanelIndex, gsap)
+
+    // Start accordion immediately (no intro)
+    initAccordion({
         gsap,
         uiState,
-
-        intro,
-        introContent,
         snapRoot,
         scanNav,
-        replayLink,
         header,
         footer,
         sections,
-
-        initialPanelIndex,
-
-        enforceOnlyCurrentVisible: (idx) => enforceOnlyCurrentVisible(sections, idx, gsap),
-
-        onStartAccordion: (startIndex) => {
-            initAccordion({
-                gsap,
-                uiState,
-                snapRoot,
-                scanNav,
-                header,
-                footer,
-                sections,
-                panelMeta: PANEL_META,
-                initialIndex: startIndex,
-                onPanelBecameA: () => runHeroTypewriterOnce(),
-            })
-        }
+        panelMeta: PANEL_META,
+        initialIndex: initialPanelIndex,
+        onPanelBecameA: () => runHeroTypewriterOnce(),
     })
 })

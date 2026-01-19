@@ -209,6 +209,20 @@ export function initAccordion({
     setSpineZAboveNav()
     window.addEventListener('resize', setSpineZAboveNav)
 
+    if (window.ResizeObserver) {
+        const ro = new ResizeObserver(() => {
+            if (lock || uiState.modalOpen) return
+            cancelSpineNow()
+            updateSpine(current, { instant: true })
+        })
+
+        if (scanNav) ro.observe(scanNav)
+        else if (header) ro.observe(header)
+
+        if (snapRoot) ro.observe(snapRoot)
+    }
+
+
     const prevPill = document.createElement('button')
     Object.assign(prevPill.style, {
         position: 'fixed',
@@ -496,16 +510,19 @@ export function initAccordion({
     function goPrev() { requestGoTo(Math.max(0, current - 1)) }
 
     function findNavAnchor(panelId) {
-        return (
-            document.querySelector(`.panel-nav[data-panel="${panelId}"]`) ||
-            document.querySelector(`#scanNav a[data-panel="${panelId}"]`) ||
-            document.querySelector(`#scanNav a[href="#${panelId}"]`) ||
-            document.querySelector(`[data-panel="${panelId}"]`) ||
-            document.querySelector('#scanNav a') ||
-            document.querySelector('.dot-rail-btn.is-active') ||
-            null
-        )
+        const candidates = [
+            document.querySelector(`.panel-nav[data-panel="${panelId}"]`),
+            document.querySelector(`#scanNav [data-panel="${panelId}"]`),
+            document.querySelector(`#scanNav a[href="#${panelId}"]`),
+            document.querySelector(`.dot-rail-btn[data-panel="${panelId}"]`),
+            document.querySelector(`.dot-rail-btn[aria-controls="${panelId}"]`),
+        ].filter(Boolean)
+
+        // Prefer a visible element (responsive layouts often keep a hidden duplicate)
+        const visible = candidates.find(el => el.getClientRects().length > 0)
+        return visible || candidates[0] || null
     }
+
 
     function updateNavAndPills(idx) {
         const id = `#${sections[idx].id}`
@@ -575,14 +592,22 @@ export function initAccordion({
 
         const btnRect = navBtn.getBoundingClientRect()
         const snapRect = snapRoot.getBoundingClientRect()
-        const navRect = (scanNav || header)?.getBoundingClientRect?.() || { top: 0 }
+
+        // Top edge reference: navbar top if available, otherwise screen top
+        const navShellEl = document.querySelector('.nav-shell') || scanNav || header
+        const navShellRect = navShellEl?.getBoundingClientRect?.() || { top: 0 }
 
         const dropExtra = (idx === 0) ? SPINE_DROP_EXTRA_FIRST : SPINE_DROP_EXTRA
         const hugHeight = (idx === 0) ? SPINE_HUG_HEIGHT_FIRST : SPINE_HUG_HEIGHT
 
-        const dropTop = Math.round(navRect.top)
-        const dropLeft = Math.round(btnRect.left - SPINE_DROP_INFLATE / 2)
+        // ✅ Desired behavior:
+        // - X centered on the active button
+        // - width matches button (plus inflate)
+        // - Y starts at the top edge of the navbar/screen
+        const dropTop = Math.round(navShellRect.top) // or: 0 for literal screen edge
         const dropWidth = Math.round(btnRect.width + SPINE_DROP_INFLATE)
+        const dropLeft = Math.round((btnRect.left + (btnRect.width / 2)) - (dropWidth / 2))
+
         const dropHeight = Math.max(0, Math.round((snapRect.top + dropExtra) - dropTop))
         const dropBottom = dropTop + dropHeight
 
@@ -704,6 +729,9 @@ export function initAccordion({
             }
         })
     }
+
+
+
 
     function goTo(idx, opts = {}) {
         const { skipUrl = false } = opts
