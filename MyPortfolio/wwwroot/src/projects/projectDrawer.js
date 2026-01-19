@@ -1,9 +1,48 @@
 ﻿// wwwroot/src/projects/projectDrawer.js
 import { PROJECTS } from './projectsData.js'
 
+const VIDEO_EXT_RE = /\.(webm|mp4|mov|m4v|ogg)$/i
+
+function makeDrawerMediaEl(src, altText = '') {
+    const isVideo = VIDEO_EXT_RE.test(src)
+
+    if (isVideo) {
+        const v = document.createElement('video')
+        v.className = 'proj-drawer-img'
+        v.autoplay = true
+        v.muted = true
+        v.loop = true
+        v.playsInline = true
+        v.preload = 'metadata'
+        v.src = src
+
+        // Double-click to play/pause (single click is reserved for lightbox)
+        v.addEventListener('dblclick', (e) => {
+            e.preventDefault()
+            ;(v.paused ? v.play() : v.pause())
+        })
+
+        return v
+    }
+
+    const img = document.createElement('img')
+    img.className = 'proj-drawer-img'
+    img.src = src
+    img.alt = altText || ''
+    img.loading = 'lazy'
+    return img
+}
+
 export function initProjectDrawer(uiState) {
     const dlg = document.getElementById('projectDrawer')
     if (!dlg) return
+
+    // Prevent double init (duplicate listeners = broken UX)
+    if (dlg.__projectDrawerInit) return
+    dlg.__projectDrawerInit = true
+
+    // Safe fallback if someone ever calls this without a shared state object
+    uiState ||= { modalOpen: false }
 
     const elTitle = document.getElementById('pdTitle')
     const elTags = document.getElementById('pdTags')
@@ -20,15 +59,16 @@ export function initProjectDrawer(uiState) {
         'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
     function getFocusable() {
-        return Array.from(dlg.querySelectorAll(FOCUSABLE_SEL))
-            .filter(el => el.offsetParent !== null || el.getClientRects().length)
+        return Array.from(dlg.querySelectorAll(FOCUSABLE_SEL)).filter(
+            (el) => el.offsetParent !== null || el.getClientRects().length
+        )
     }
 
     function trapFocusOn() {
         if (dlg.__trapOn) return
         dlg.__trapOn = true
 
-        dlg.addEventListener('keydown', (dlg.__trapHandler = (e) => {
+        dlg.__trapHandler = (e) => {
             if (e.key === 'Escape') {
                 e.preventDefault()
                 closeDrawer()
@@ -55,14 +95,19 @@ export function initProjectDrawer(uiState) {
                     first.focus()
                 }
             }
-        }))
+        }
+
+        dlg.addEventListener('keydown', dlg.__trapHandler)
     }
 
     function trapFocusOff() {
         if (!dlg.__trapOn) return
         dlg.__trapOn = false
-        if (dlg.__trapHandler) dlg.removeEventListener('keydown', dlg.__trapHandler)
-        dlg.__trapHandler = null
+
+        if (dlg.__trapHandler) {
+            dlg.removeEventListener('keydown', dlg.__trapHandler)
+            dlg.__trapHandler = null
+        }
     }
 
     function setLink(a, url) {
@@ -79,27 +124,46 @@ export function initProjectDrawer(uiState) {
     function renderSlides(data) {
         if (!elSnap) return
 
+        // Always start at the top when opening
         elSnap.scrollTop = 0
-        requestAnimationFrame(() => { elSnap.scrollTop = 0 })
+        requestAnimationFrame(() => {
+            elSnap.scrollTop = 0
+        })
 
         const slides =
-            (Array.isArray(data.slides) && data.slides.length)
+            Array.isArray(data.slides) && data.slides.length
                 ? data.slides
                 : [{ img: data.heroImg || '', html: data.storyHtml || '' }]
 
-        elSnap.innerHTML = slides.map((s, i) => `
-      <section class="proj-drawer-step" data-step="${i}">
-        <div class="proj-drawer-grid">
-          <aside class="proj-drawer-proof">
-            ${s.img ? `<img class="proj-drawer-img" src="${s.img}" alt="${(data.title || 'Project') + ' — slide ' + (i + 1)}" loading="lazy">` : ``}
-          </aside>
+        // Build the layout (NO <img> tags here)
+        elSnap.innerHTML = slides
+            .map(
+                (s, i) => `
+<section class="proj-drawer-step" data-step="${i}">
+  <div class="proj-drawer-grid">
+    <aside class="proj-drawer-proof" data-media-slot="1"></aside>
+    <article class="proj-drawer-story">
+      ${s.html || ''}
+    </article>
+  </div>
+</section>`
+            )
+            .join('')
 
-          <article class="proj-drawer-story">
-            ${s.html || ''}
-          </article>
-        </div>
-      </section>
-    `).join('')
+        // After the HTML exists, inject the right element (<img> or <video>)
+        const steps = elSnap.querySelectorAll('.proj-drawer-step')
+        steps.forEach((stepEl, i) => {
+            const s = slides[i]
+            const slot = stepEl.querySelector('[data-media-slot]')
+            if (!slot) return
+
+            const src = (s?.img || '').trim()
+            if (!src) return
+
+            const alt = `${data.title || 'Project'} — slide ${i + 1}`
+            const mediaEl = makeDrawerMediaEl(src, alt)
+            slot.replaceChildren(mediaEl)
+        })
     }
 
     function openDrawer(key, focusEl) {
@@ -110,7 +174,10 @@ export function initProjectDrawer(uiState) {
         uiState.modalOpen = true
 
         if (elTitle) elTitle.textContent = data.title || 'Project'
-        if (elTags) elTags.innerHTML = (data.tags || []).map(t => `<span class="proj-tag">${t}</span>`).join('')
+        if (elTags)
+            elTags.innerHTML = (data.tags || [])
+                .map((t) => `<span class="proj-tag">${t}</span>`)
+                .join('')
 
         setLink(elLive, data.links?.live || '')
         setLink(elGit, data.links?.github || '')
@@ -124,19 +191,26 @@ export function initProjectDrawer(uiState) {
         else dlg.setAttribute('open', '')
 
         trapFocusOn()
-        setTimeout(() => elClose?.focus(), 0)
+        setTimeout(() => elClose?.focus?.(), 0)
     }
 
     function closeDrawer() {
-        if (!dlg.hasAttribute('open') && typeof dlg.open === 'boolean' && !dlg.open) return
+        // If already closed, bail
+        if (!dlg.open && !dlg.hasAttribute('open')) return
 
         trapFocusOff()
 
-        try { dlg.close?.() } catch { dlg.removeAttribute('open') }
+        try {
+            dlg.close?.()
+        } catch {
+            dlg.removeAttribute('open')
+        }
 
         if (elSnap) {
             elSnap.scrollTop = 0
-            requestAnimationFrame(() => { elSnap.scrollTop = 0 })
+            requestAnimationFrame(() => {
+                elSnap.scrollTop = 0
+            })
         }
 
         uiState.modalOpen = false
@@ -145,6 +219,9 @@ export function initProjectDrawer(uiState) {
         setTimeout(() => lastFocusEl?.focus?.(), 0)
     }
 
+    // --- Events ---
+
+    // Safety cleanup if something closes the dialog without calling closeDrawer()
     dlg.addEventListener('close', () => {
         trapFocusOff()
         uiState.modalOpen = false
@@ -155,16 +232,18 @@ export function initProjectDrawer(uiState) {
         closeDrawer()
     })
 
+    // Click outside the shell closes (overlay click)
     dlg.addEventListener('click', (e) => {
         if (e.target === dlg) closeDrawer()
     })
 
+    // Prevent default ESC-close so we can restore focus + state consistently
     dlg.addEventListener('cancel', (e) => {
         e.preventDefault()
         closeDrawer()
     })
 
-    // Bind project cards → open the drawer with the right slide pack
+    // Bind project cards → open the drawer
     document.querySelectorAll('[data-project-card], [data-project]').forEach((card) => {
         card.addEventListener('click', () => {
             const key = card.getAttribute('data-project')
@@ -199,5 +278,6 @@ export function initProjectDrawer(uiState) {
         if (e.key === 'Escape' && uiState.modalOpen) closeProjectModal()
     })
 
-   
+    // NOTE: openProjectModal is intentionally unused now; drawer is the main UX.
+    void openProjectModal
 }

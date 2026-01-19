@@ -94,7 +94,7 @@ export const PROJECTS = {
 
           <h3>Why this screen matters</h3>
           <ul>
-            <li>Most admin time is spent here — it had to be clear and consistent.</li>
+            <li>Most admin time is spent here, it had to be clear and consistent.</li>
             <li>Same layout patterns as the list view, so it feels familiar.</li>
             <li>Editing is straightforward (no “where do I click?” moments).</li>
           </ul>
@@ -154,13 +154,15 @@ export const PROJECTS = {
                 img: "/img/Scrum3.png",
                 html: `
           <h3>Scrum: user stories & scope</h3>
-          <p>This shows how we broke the project down into clear user stories (what the business needs, not just “tasks”).</p>
+          <p>We translated requirements into epics, then split those into user stories with clear acceptance criteria. 
+          Each story had a stable ID (e.g., VE1-101) that we also used in our Git branch naming, so work stayed traceable from planning to implementation to review..</p>
 
-          <h3>What it proves</h3>
+          <h3>What it demonstrates</h3>
           <ul>
-            <li>We worked from requirements, not vibes.</li>
-            <li>Features were planned and tracked, not random commits.</li>
-            <li>Helped the team stay aligned while building in parallel.</li>
+            <li><b>Structured planning:</b> epics → user stories → implementable slices.</li>
+            <li><b>Clarity:</b> story IDs mapped directly to branches, making it easy to audit what shipped and why.</li>
+            <li><b>Parallel delivery:</b> clear story boundaries reduce overlap and helped multiple people work at once without stepping on each other.</li>
+            <li><b>Scope control:</b> changes were handled by updating the backlog and re-slicing stories, instead of drifting mid-sprint.</li>
           </ul>
         `
             },
@@ -170,11 +172,10 @@ export const PROJECTS = {
           <h3>Scrum: burndown / sprint progress</h3>
           <p>We tracked sprint progress over time. It’s a quick way to show if the sprint is on-track or slipping.</p>
 
-          <h3>Why I included this</h3>
+          <h3>Why this is included</h3>
           <ul>
-            <li>Shows planning + follow-through.</li>
-            <li>Shows that work was measured, not guessed.</li>
-            <li>Gives a clear picture of sprint pace.</li>
+            <p>I’m not only showing the final result. I’m also showing how the work was organized and delivered: planning, clarity, and team alignment. 
+            This is the part that makes development predictable in real projects, especially when multiple people contribute in parallel.</p>
           </ul>
         `
             },
@@ -196,44 +197,165 @@ export const PROJECTS = {
     },
 
     "portfolio-accordion": {
-        title: "Portfolio Website — Interactive Accordion UI",
-        tags: ["HTML", "CSS", "JavaScript", "Tailwind", "Vite", "UX"],
-        links: { live: "/", github: "https://github.com/yourname/yourrepo", video: "" },
+        title: "Portfolio Website — Interactive Accordion + Proof-First Case Studies",
+        tags: [
+            "ASP.NET Core MVC",
+            "C#",
+            "Razor",
+            "JavaScript (ES Modules)",
+            "GSAP",
+            "Tailwind CSS",
+            "Vite",
+            "Azure App Service"
+        ],
+        links: {
+            live: "https://christianmuley.azurewebsites.net/",
+            github: "", // <-- add your repo link if you want it shown
+            video: ""
+        },
         slides: [
             {
-                img: "/img/Panel1BG.png",
+                img: "/img/PortfolioThumb.png",
                 html: `
-          <h3>Goal & Constraints</h3>
-          <ul>
-            <li><b>Goal:</b> Recruiters skim fast, click for proof, waste zero time.</li>
-            <li><b>Constraint:</b> Everything lives inside an accordion layout but still feels premium.</li>
-          </ul>
-        `
+        <h3>What I built</h3>
+        <p>
+          A public portfolio designed for fast scanning: one-page navigation, zero clutter, and project case studies that open into a
+          proof-first story drawer (screens + narrative).
+        </p>
+
+        <h3>Core idea</h3>
+        <ul>
+          <li><b>Recruiter-friendly flow:</b> browse in seconds, click for details only when needed.</li>
+          <li><b>Premium interaction design:</b> smooth transitions, clear focus, and consistent UI rules.</li>
+          <li><b>Real functionality:</b> contact form that emails me securely (no secrets exposed).</li>
+        </ul>
+      `
+            },
+
+            {
+                img: "/img/PortfolioAccordion.webm",
+                html: `
+        <h3>Accordion navigation (snap panels)</h3>
+        <p>
+          The site uses a “snap accordion” layout: one panel is fully open, adjacent panels are collapsed, and everything else is hidden.
+          This keeps the UI focused and prevents long scrolling pages.
+        </p>
+
+        <h3>How it’s implemented</h3>
+        <ul>
+          <li>Animated panel heights + content fade-in for clean transitions.</li>
+          <li>Keyboard support (PageUp/PageDown, arrows, Escape behavior in dialogs).</li>
+          <li>URL deep-linking via hashes (direct links to Skills / Projects / Contact).</li>
+          <li>Scroll is intentionally gated: only the right area scrolls on small screens.</li>
+        </ul>
+      `
+            },
+
+            {
+                img: "/img/SpineDrop.webm",
+                html: `
+        <h3>Spinedrop navigation (orientation + feedback)</h3>
+        <p>
+          The navigation uses a custom “spine” animation to visually connect the active menu item to the content below.
+          It’s color-themed per panel and cancels instantly when users switch quickly (no waiting, no jank).
+        </p>
+
+        <h3>What makes it solid</h3>
+        <ul>
+          <li>Anchored to the active button width for precision.</li>
+          <li>Starts from the top edge (viewport) for a clean “drop” feeling.</li>
+          <li>Theme colors per section + glow styling tied to the active panel.</li>
+          <li>Responsive recalculation on resize and layout changes.</li>
+        </ul>
+      `
             },
             {
-                img: "/img/JavaScript.png",
+                img: "/img/WarframeSliders.webm",
                 html: `
-          <h3>UI System</h3>
-          <ul>
-            <li>Accordion navigation with smooth transitions.</li>
-            <li>Navigation resumes at the last opened panel.</li>
-            <li>Spine animation cancels instantly when users switch (no jank / no waiting).</li>
-          </ul>
-        `
+    <h3>Interactive sliders (responsive layout)</h3>
+    <p>
+      I built a custom slider component that feels tactile on desktop, and automatically switches to a vertical layout on small screens.
+      It keeps the same interaction rules while staying readable and usable on mobile. 
+    </p>
+
+    <h3>What’s included</h3>
+    <ul>
+      <li>Active item expands to prioritize the current selection.</li>
+      <li>Non-active items collapse into a clean, low-noise state.</li>
+      <li>On small screens, the layout reflows into a vertical slider without breaking the UX.</li>
+    </ul>
+
+    <h3>Why I’m proud of it</h3>
+    <ul>
+      <li>It’s a “feel” feature: smooth, readable, and consistent across devices.</li>
+      <li>It solved a real mobile problem without adding clutter or extra navigation.</li>
+    </ul>
+
+    <p style="margin-top:.75rem; opacity:.8;">
+      Inspired by the Warframe launcher, thanks DE!
+    </p>
+  `
             },
+
             {
-                img: "/img/CSMVC.png",
+                img: "/img/StoryDrawers.webm",
                 html: `
-          <h3>Accessibility & Polish</h3>
-          <ul>
-            <li>Keyboard support (arrows, Enter, Escape).</li>
-            <li>Respects prefers-reduced-motion.</li>
-            <li>Fast initial load, snappy interactions.</li>
-          </ul>
-        `
+        <h3>Project story drawer (proof-first presentation)</h3>
+        <p>
+          Projects open in a modal drawer built on the native <code>&lt;dialog&gt;</code> element, with focus trapping and
+          scroll-snap slides. Each slide pairs an image with structured narrative content.
+        </p>
+
+        <h3>Why this matters</h3>
+        <ul>
+          <li><b>Consistency:</b> every project follows the same story format.</li>
+          <li><b>Proof-first:</b> screenshots are always visible alongside the explanation.</li>
+          <li><b>Maintainable:</b> content comes from a single JS data file, not scattered markup.</li>
+          <li><b>Accessible:</b> keyboard escape, focus loop, and close on backdrop click.</li>
+        </ul>
+      `
+            },
+
+            {
+                img: "/img/Mobile.webm",
+                html: `
+        <h3>Mobile responsiveness (controlled scrolling)</h3>
+        <p>
+          On mobile, the biggest challenge is avoiding “accidental panel changes” while still keeping the UI smooth.
+          The solution: no global scrollbars, and only the active panel becomes scrollable when needed.
+        </p>
+
+        <h3>What was done</h3>
+        <ul>
+          <li>Only the active panel gets <b>panel-scroll</b> behavior when the viewport is tight.</li>
+          <li>Touch / wheel handling avoids skipping past interactive sections.</li>
+          <li>The Skills view becomes focus-based on small screens (clean, readable, no clutter).</li>
+          <li>Navbar adapts to avoid wrapping and keeps actions usable on narrow widths.</li>
+        </ul>
+      `
+            },
+
+            {
+                img: "/img/ContactForm.webm",
+                html: `
+        <h3>Contact form</h3>
+        <p>
+          The contact form posts to a server endpoint that sends an email to my inbox. Credentials are not shipped to the browser.
+          Secrets live in Azure App Settings (environment variables).
+        </p>
+
+        <h3>Safety and reliability</h3>
+        <ul>
+          <li>Server-side validation + length caps to reduce abuse.</li>
+          <li>Rate limiting (per IP) to stop spam bursts.</li>
+          <li>SMTP credentials stored in Azure configuration (not hardcoded in public code).</li>
+          <li>Clear success/failure feedback in the UI.</li>
+        </ul>
+      `
             }
         ]
     },
+
 
     "java-aggregator": {
         title: "Price Aggregator & Opportunity Scanner",
@@ -263,7 +385,7 @@ export const PROJECTS = {
             reward choices are time-sensitive, and picking blindly can mean losing currency long-term.
             I built this app to turn that decision into a quick, data-backed choice.
             It also pushed me to learn new parts of Java that I hadn’t used before
-            - OCR via Tess4J and integrating a live market API — in a project that has a clear purpose.
+            - OCR via Tess4J and integrating a live market API in a project that has a clear purpose.
           </ul>
         `
             },
@@ -375,7 +497,7 @@ export const PROJECTS = {
         `
             },
             {
-                img: "/img/PRA1.gif",
+                img: "/img/PRA1.webm",
                 html: `
           <h3>Movement showcase</h3>
           <p>The traversal is built around <b>momentum control</b>, not canned animations — speed is earned and preserved.</p>
@@ -397,7 +519,7 @@ export const PROJECTS = {
         `
             },
             {
-                img: "/img/PRASpellWeave.gif",
+                img: "/img/PRASpellWeave.webm",
                 html: `
           <h3>Spellweaving in action</h3>
           <p>You build spells on the fly: <b>Element → Modifiers → Form</b>. The system resolves it instantly without slowing movement.</p>
@@ -422,6 +544,9 @@ export const PROJECTS = {
             <li>Easy to expand: add data + tuning, not new branching code paths.</li>
             <li>Stays responsive even while sprinting, sliding, and dashing.</li>
           </ul>
+          <p>Note: The original scope had 8 elements, 8 modifiers and 8 forms, resulting in 73728 different unique combinations.</p>
+          <p>Needlessly to say, I cut it down to 4 of each and made Modifiers pure math/code. Tuning the endresult down to 40 unique combinations.</p>
+          
         `
             },
             {
@@ -446,10 +571,10 @@ export const PROJECTS = {
         `
             },
             {
-                img: "/img/Unity.png",
+                img: "/img/DashFX.gif",
                 html: `
           <h3>Performance & pooling</h3>
-          <p>This project is designed to survive stress: lots of movement, lots of effects, no garbage spikes.</p>
+          <p>This project is designed to survive stress: lots of movement, lots of effects, no spikes.</p>
 
           <h3>What I did</h3>
           <ul>
