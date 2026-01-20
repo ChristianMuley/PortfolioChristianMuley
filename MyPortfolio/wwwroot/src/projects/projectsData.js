@@ -218,15 +218,14 @@
                 html: `
         <h3>What I built</h3>
         <p>
-          A public portfolio designed for fast scanning: one-page navigation, zero clutter, and project case studies that open into a
-          proof-first story drawer (screens + narrative).
+          A public portfolio that’s easy to scan: one page, simple navigation, and projects that open into a drawer with screenshots plus the “what/why” behind it.
         </p>
 
         <h3>Core idea</h3>
         <ul>
-          <li><b>Recruiter-friendly flow:</b> browse in seconds, click for details only when needed.</li>
-          <li><b>Premium interaction design:</b> smooth transitions, clear focus, and consistent UI rules.</li>
-          <li><b>Real functionality:</b> contact form that emails me securely (no secrets exposed).</li>
+          <li><b>Recruiter-friendly flow:</b> you can skim fast, click for details only when needed.</li>
+          <li><b>Interaction that feels good:</b> smooth transitions, clear focus, and consistent UI.</li>
+          <li><b>Real functionality:</b> contact form that emails me securely (nothing sensitive exposed).</li>
         </ul>
       `
             },
@@ -236,14 +235,14 @@
                 html: `
         <h3>Accordion navigation (snap panels)</h3>
         <p>
-          The site uses a “snap accordion” layout: one panel is fully open, adjacent panels are collapsed, and everything else is hidden.
-          This keeps the UI focused and prevents long scrolling pages.
+          The site uses a snap-style accordion: one panel is fully open, the next/previous ones stay collapsed, and the rest stays out of the way. 
+          It keeps things focused and avoids endless scrolling.
         </p>
 
         <h3>How it’s implemented</h3>
         <ul>
-          <li>Animated panel heights + content fade-in for clean transitions.</li>
-          <li>Keyboard support (PageUp/PageDown, arrows, Escape behavior in dialogs).</li>
+          <li>GSAP-driven transitions (panel height + content fade) to keep it smooth.</li>
+          <li>Project content is data-driven from a single JS file, so updating projects stays quick 'n easy.</li>
           <li>URL deep-linking via hashes (direct links to Skills / Projects / Contact).</li>
           <li>Scroll is intentionally gated: only the right area scrolls on small screens.</li>
         </ul>
@@ -255,16 +254,16 @@
                 html: `
         <h3>Spinedrop navigation (orientation + feedback)</h3>
         <p>
-          The navigation uses a custom “spine” animation to visually connect the active menu item to the content below.
-          It’s color-themed per panel and cancels instantly when users switch quickly (no waiting, no jank).
+         The nav has a custom “spine” animation that links the active menu item to the section below. 
+         Each section has its own color theme, and if you switch quickly, it cancels immediately, so it stays snappy.
         </p>
 
         <h3>What makes it solid</h3>
         <ul>
           <li>Anchored to the active button width for precision.</li>
           <li>Starts from the top edge (viewport) for a clean “drop” feeling.</li>
-          <li>Theme colors per section + glow styling tied to the active panel.</li>
-          <li>Responsive recalculation on resize and layout changes.</li>
+          <li>Colors + glow follow the active section.</li>
+          <li>It recalculates on resize and layout changes, so it stays responsive.</li>
         </ul>
       `
             },
@@ -273,25 +272,25 @@
                 html: `
     <h3>Interactive sliders (responsive layout)</h3>
     <p>
-      I built a custom slider component that feels tactile on desktop, and automatically switches to a vertical layout on small screens.
-      It keeps the same interaction rules while staying readable and usable on mobile. 
+      I built a custom slider that feels good on desktop, and switches to a vertical layout on smaller screens. 
+      Same interaction rules, just adapted so it stays readable and easy to use on mobile.
     </p>
 
     <h3>What’s included</h3>
     <ul>
-      <li>Active item expands to prioritize the current selection.</li>
-      <li>Non-active items collapse into a clean, low-noise state.</li>
+      <li>The active item expands to prioritize the current selection.</li>
+      <li>Non-active items collapse into a clean, quiet state.</li>
       <li>On small screens, the layout reflows into a vertical slider without breaking the UX.</li>
     </ul>
 
     <h3>Why I’m proud of it</h3>
     <ul>
-      <li>It’s a “feel” feature: smooth, readable, and consistent across devices.</li>
+      <li>It’s mostly a “feel” thing: smooth, readable, and consistent across devices.</li>
       <li>It solved a real mobile problem without adding clutter or extra navigation.</li>
     </ul>
 
     <p style="margin-top:.75rem; opacity:.8;">
-      Inspired by the Warframe launcher, thanks DE!
+      Inspired by the Warframe launcher - thanks DE!
     </p>
   `
             },
@@ -309,8 +308,8 @@
         <ul>
           <li><b>Consistency:</b> every project follows the same story format.</li>
           <li><b>Proof-first:</b> screenshots are always visible alongside the explanation.</li>
-          <li><b>Maintainable:</b> content comes from a single JS data file, not scattered markup.</li>
-          <li><b>Accessible:</b> keyboard escape, focus loop, and close on backdrop click.</li>
+          <li><b>Maintainable:</b> content comes from a single JS data file.</li>
+          <li><b>Accessible:</b> you can close with Escape or by clicking outside the drawer.</li>
         </ul>
       `
             },
@@ -320,16 +319,17 @@
                 html: `
         <h3>Mobile responsiveness (controlled scrolling)</h3>
         <p>
-          On mobile, the biggest challenge is avoiding “accidental panel changes” while still keeping the UI smooth.
-          The solution: no global scrollbars, and only the active panel becomes scrollable when needed.
+         Mobile was all about cramming the same experience onto a tiny screen without it turning into a mess.
+         The goal stayed the same: keep it clean, readable and snappy.
         </p>
 
         <h3>What was done</h3>
         <ul>
-          <li>Only the active panel gets <b>panel-scroll</b> behavior when the viewport is tight.</li>
-          <li>Touch / wheel handling avoids skipping past interactive sections.</li>
-          <li>The Skills view becomes focus-based on small screens (clean, readable, no clutter).</li>
-          <li>Navbar adapts to avoid wrapping and keeps actions usable on narrow widths.</li>
+          <li>The spinedrop recalculates position/sizes from the real layout, so it stays aligned on any screen.</li>
+          <li>The sliders switch to a vertical layout on small screens so, content stays readable and your thumb can actually use it.</li>
+          <li>The project drawer stays usable on mobile, the content scrolls inside the drawer, without the page fighting it. The layout changes to horizontal split.</li>
+          <li>All in all the UI rules stay consistent; the same interactions still apply, they ust adapt layout-wise.</li>
+          <li>Feel free to test it out if you're on desktop, just resize the window, and you'll see!</li>
         </ul>
       `
             },
@@ -454,12 +454,12 @@
             <li>Detected reward name + match confidence.</li>
             <li>Lowest online sell price for each slot.</li>
             <li>Auto-sorted so the best choice is obvious.</li>
-            <li>Clickable / copyable slugs (depending on your UI).</li>
+           
           </ul>
 
           <h3>Small but important details</h3>
           <ul>
-            <li>If OCR confidence is low, it won’t “lie” — it marks it as uncertain.</li>
+            <li>If OCR confidence is low, it won’t “lie” - it marks it as uncertain.</li>
             <li>Results are repeatable because matching is controlled and cleaned.</li>
           </ul>
         `
@@ -499,14 +499,14 @@
                 img: "/img/PRA1.webm",
                 html: `
           <h3>Movement showcase</h3>
-          <p>The traversal is built around <b>momentum control</b>, not canned animations — speed is earned and preserved.</p>
+          <p>The traversal is built around <b>momentum control</b>, not canned animations - speed is earned and preserved.</p>
 
           <h3>Movement system details</h3>
           <ul>
             <li><b>State machine</b> for predictability (sprint, dash, wallrun, slide, vault, air states).</li>
             <li><b>Sliding</b> preserves momentum, then bleeds speed via friction… unless the slope is steep enough (≈ <b>45°+</b>) where gravity wins.</li>
             <li><b>Vaulting</b> uses an exit vector derived from your entry vector, so high-speed lines stay fluid.</li>
-            <li><b>Wallrunning</b> is energy-capped and ramps gravity back in over time (no infinite glue).</li>
+            <li><b>Wallrunning</b> is energy-capped and ramps gravity back in over time.</li>
           </ul>
 
           <h3>Why it feels good</h3>
@@ -527,7 +527,7 @@
           <ul>
             <li><b>Elements use a bitmask key</b> (orderless combos) so resolution is cheap.</li>
             <li>The element key hits an <b>O(1) table lookup</b> to get the base payload.</li>
-            <li><b>Modifiers aren’t looked up</b> — they’re just <b>math transforms</b> applied to the payload (multi, spread, pierce, homing strength, etc.).</li>
+            <li><b>Modifiers aren’t looked up</b> - they’re just <b>math transforms</b> applied to the payload (multi, spread, pierce, homing strength, etc.).</li>
             <li><b>Form</b> is the executor (projectile / wave / beam style behavior), keeping the pipeline clean.</li>
           </ul>
 
@@ -543,7 +543,7 @@
             <li>Easy to expand: add data + tuning, not new branching code paths.</li>
             <li>Stays responsive even while sprinting, sliding, and dashing.</li>
           </ul>
-          <p>Note: The original scope had 8 elements, 8 modifiers and 8 forms, resulting in 73728 different unique combinations.</p>
+          <p>Note: The original scope had 8 elements, 8 modifiers and 8 forms, resulting in 73 728 different unique combinations.</p>
           <p>Needlessly to say, I cut it down to 4 of each and made Modifiers pure math/code. Tuning the endresult down to 40 unique combinations.</p>
           
         `
@@ -567,6 +567,7 @@
             <li>Cheap shaping controls (vignette + blocks) = strong art direction without heavy cost.</li>
             <li>Designed to work cleanly in URP pipelines (including RenderGraph paths).</li>
           </ul>
+          <p>Note: I'll need to further test the performance impact, for now it seems very performance friendly.</p>
         `
             },
             {
