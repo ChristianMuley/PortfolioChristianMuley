@@ -1,5 +1,4 @@
-﻿// wwwroot/src/utils/scroll.js
-export function canScrollVert(el, dy) {
+﻿export function canScrollVert(el, dy) {
     let node = el
     while (node && node !== document.body) {
         if (node.nodeType !== 1) { node = node.parentElement || node.parentNode; continue }

@@ -1,5 +1,4 @@
-﻿// wwwroot/src/accordion/visibility.js
-import { setT, showEl, hideEl } from '../utils/dom.js'
+﻿import { setT, showEl, hideEl } from '../utils/dom.js'
 
 export function preHideNonFirst(sections, gsap) {
     sections.forEach((sec, i) => {

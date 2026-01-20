@@ -1,9 +1,8 @@
-﻿// wwwroot/src/projects/projectsData.js
-export const PROJECTS = {
+﻿export const PROJECTS = {
     "sales-admin": {
         title: "Sales Admin Portal (Scrum Team Project)",
         tags: ["C#", "ASP.NET MVC", "EF Core", "SQL Server", "JS/HTML/CSS", "Scrum"],
-        links: { live: "", github: "", video: "" },
+        links: { live: "", github: "https://github.com/ChristianMuley/ScrumProject.git", video: "" },
         slides: [
             {
                 img: "/img/PrulariaHero.png",
@@ -210,7 +209,7 @@ export const PROJECTS = {
         ],
         links: {
             live: "https://christianmuley.azurewebsites.net/",
-            github: "", // <-- add your repo link if you want it shown
+            github: "https://github.com/ChristianMuley/PortfolioChristianMuley/tree/700337d3253a8b5e85763036c2c0b596bf202319/MyPortfolio", 
             video: ""
         },
         slides: [

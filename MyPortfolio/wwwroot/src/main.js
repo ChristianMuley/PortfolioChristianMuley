@@ -1,5 +1,4 @@
-﻿// wwwroot/src/main.js
-import './styles.css'
+﻿import './styles.css'
 import gsap from 'gsap'
 
 import { PANEL_META } from './config/panels.js'

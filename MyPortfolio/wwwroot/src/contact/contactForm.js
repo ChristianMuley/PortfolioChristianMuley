@@ -1,5 +1,4 @@
-﻿// wwwroot/src/contact/contactForm.js
-export function initContactForm() {
+﻿export function initContactForm() {
     const form = document.getElementById('contactForm')
     const status = document.getElementById('contactStatus')
     const btn = document.getElementById('cfSendBtn')

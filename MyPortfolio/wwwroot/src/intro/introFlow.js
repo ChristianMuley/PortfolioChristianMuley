@@ -1,5 +1,4 @@
-﻿// wwwroot/src/intro/introFlow.js
-import { raf } from '../utils/timing.js'
+﻿import { raf } from '../utils/timing.js'
 import { setCookie, getCookie, delCookie } from '../utils/cookies.js'
 
 function radiusToCoverRect(rect, cx, cy, pad = 24) {

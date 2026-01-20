@@ -1,5 +1,4 @@
-﻿// wwwroot/src/projects/projectDrawer.js
-import { PROJECTS } from './projectsData.js'
+﻿import { PROJECTS } from './projectsData.js'
 
 const VIDEO_EXT_RE = /\.(webm|mp4|mov|m4v|ogg)$/i
 

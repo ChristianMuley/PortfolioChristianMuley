@@ -178,11 +178,12 @@ export function setupAdobeGallery() {
 
     // Click-to-zoom for project drawer media (img OR video)
     // IMPORTANT: only trigger when media is INSIDE #projectDrawer (prevents loops)
+    // This took me too long to find
     document.addEventListener("click", (e) => {
         const mediaEl = e.target.closest(".proj-drawer-img");
         if (!mediaEl) return;
 
-        if (!mediaEl.closest("#projectDrawer")) return; // <-- critical guard
+        if (!mediaEl.closest("#projectDrawer")) return;
 
         const src = readMediaSrc(mediaEl);
         if (!src) return;

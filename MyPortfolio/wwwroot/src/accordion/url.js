@@ -1,5 +1,4 @@
-﻿// wwwroot/src/accordion/url.js
-export function panelIndexFromHash(sections) {
+﻿export function panelIndexFromHash(sections) {
     const raw = (location.hash || '').replace('#', '').trim()
     if (!raw) return 0
     const idx = sections.findIndex(s => s.id.toLowerCase() === raw.toLowerCase())

@@ -1,5 +1,4 @@
-﻿// wwwroot/src/utils/cookies.js
-export const setCookie = (n, v, d) => {
+﻿export const setCookie = (n, v, d) => {
     const days = typeof d === 'number' ? d : 365
     const t = new Date()
     t.setTime(t.getTime() + days * 864e5)

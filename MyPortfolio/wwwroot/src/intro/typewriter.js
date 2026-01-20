@@ -1,5 +1,4 @@
-﻿// wwwroot/src/intro/typewriter.js
-import { sleep } from '../utils/timing.js'
+﻿import { sleep } from '../utils/timing.js'
 import { prefersReducedMotion } from '../utils/motion.js'
 
 export function markHeroTypewriterTargets() {

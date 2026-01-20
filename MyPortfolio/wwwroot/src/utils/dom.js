@@ -1,5 +1,4 @@
-﻿// wwwroot/src/utils/dom.js
-export const setT = (el, px) => { if (el) el.style.transform = `translateY(${px | 0}px)` }
+﻿export const setT = (el, px) => { if (el) el.style.transform = `translateY(${px | 0}px)` }
 
 export const showEl = (el) => {
     if (!el) return

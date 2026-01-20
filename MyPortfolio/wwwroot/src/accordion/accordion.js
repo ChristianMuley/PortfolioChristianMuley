@@ -1,5 +1,4 @@
-﻿// wwwroot/src/accordion/accordion.js
-import { setT, showEl, hideEl } from '../utils/dom.js'
+﻿import { setT, showEl, hideEl } from '../utils/dom.js'
 import { raf } from '../utils/timing.js'
 import { canScrollVert } from '../utils/scroll.js'
 import { panelIndexFromHash, writePanelToUrl } from './url.js'
@@ -494,7 +493,7 @@ export function initAccordion({
 
         const currentId = sections[current]?.id
 
-        // ✅ On Skills panel: swipe cycles skills cards first
+        // On Skills panel: swipe cycles skills cards first
         if (currentId === 'B' && skillsGate) {
             if (Math.abs(dy) > 40) {
                 // allow preventDefault
@@ -662,11 +661,7 @@ export function initAccordion({
 
         const dropExtra = (idx === 0) ? SPINE_DROP_EXTRA_FIRST : SPINE_DROP_EXTRA
         const hugHeight = (idx === 0) ? SPINE_HUG_HEIGHT_FIRST : SPINE_HUG_HEIGHT
-
-        // ✅ Desired behavior:
-        // - X centered on the active button
-        // - width matches button (plus inflate)
-        // - Y starts at the top edge of the navbar/screen
+        
         const dropTop = Math.round(navShellRect.top) // or: 0 for literal screen edge
         const dropWidth = Math.round(btnRect.width + SPINE_DROP_INFLATE)
         const dropLeft = Math.round((btnRect.left + (btnRect.width / 2)) - (dropWidth / 2))
