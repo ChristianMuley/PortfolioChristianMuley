@@ -9,7 +9,7 @@
                 html: `
           <h3>Project overview (2-week Scrum build)</h3>
           <p>
-            For a client, we built a working <b>Sales Admin Portal</b> used to manage <b>orders</b> and <b>clients</b>.
+            We built a <b>Sales Admin Portal</b> to manage orders and clients for a client project.
             This was a <b>team of 6</b>, built in <b>2 weeks</b>, split into <b>two sprints</b>.
           </p>
 
@@ -17,7 +17,7 @@
           <ul>
             <li>We followed <b>Scrum</b> with a Scrum Master + Product Owner.</li>
             <li>Those roles rotated every <b>2 days</b> so everyone got hands-on experience.</li>
-            <li>Work was tracked and delivered in sprint chunks (not random features).</li>
+            <li>Work was tracked and delivered in sprint chunks.</li>
           </ul>
 
           <h3>What I did</h3>
@@ -43,7 +43,7 @@
           <h3>Why it matters</h3>
           <ul>
             <li>Keeps customer and order data behind authentication.</li>
-            <li>Sets the tone for the rest of the app: clean, simple, no confusion.</li>
+            <li>I kept it simple and consistent with the rest of the UI.</li>
           </ul>
 
           <h3>My part</h3>
@@ -61,7 +61,7 @@
           <h3>What I focused on here</h3>
           <ul>
             <li>Readable layout (spacing, alignment, consistent buttons).</li>
-            <li>Hover states so it feels responsive and “clickable”.</li>
+            <li>Clear hover states so you know what’s clickable.</li>
             <li>Keeping the page calm even when there’s a lot of data.</li>
           </ul>
         `
@@ -76,7 +76,7 @@
           <ul>
             <li>Filters with a clear “active” state (chips).</li>
             <li>Orders-per-page dropdown + page navigation.</li>
-            <li>Designed for speed: find the right order in seconds.</li>
+            <li>The goal was to find the right order without hunting.</li>
           </ul>
 
           <h3>My contribution</h3>
@@ -169,12 +169,11 @@
                 img: "/img/Scrum2.png",
                 html: `
           <h3>Scrum: burndown / sprint progress</h3>
-          <p>We tracked sprint progress over time. It’s a quick way to show if the sprint is on-track or slipping.</p>
+          <p> We used a burndown chart to track how the sprint was going day by day. It makes it obvious when we’re on track, and when we’re drifting.</p>
 
           <h3>Why this is included</h3>
           <ul>
-            <p>I’m not only showing the final result. I’m also showing how the work was organized and delivered: planning, clarity, and team alignment. 
-            This is the part that makes development predictable in real projects, especially when multiple people contribute in parallel.</p>
+            <p>It shows how we worked: planned the sprint, tracked progress, and adjusted when needed. With 6 people working at once, that structure mattered.</p>
           </ul>
         `
             },
@@ -286,7 +285,7 @@
     <h3>Why I’m proud of it</h3>
     <ul>
       <li>It’s mostly a “feel” thing: smooth, readable, and consistent across devices.</li>
-      <li>It solved a real mobile problem without adding clutter or extra navigation.</li>
+      <li>It fixed the mobile layout without adding extra UI.</li>
     </ul>
 
     <p style="margin-top:.75rem; opacity:.8;">
@@ -298,7 +297,7 @@
             {
                 img: "/img/StoryDrawers.webm",
                 html: `
-        <h3>Project story drawer (proof-first presentation)</h3>
+        <h3>Project story drawer</h3>
         <p>
           Projects open in a modal drawer built on the native <code>&lt;dialog&gt;</code> element, with focus trapping and
           scroll-snap slides. Each slide pairs an image with structured narrative content.
@@ -307,7 +306,7 @@
         <h3>Why this matters</h3>
         <ul>
           <li><b>Consistency:</b> every project follows the same story format.</li>
-          <li><b>Proof-first:</b> screenshots are always visible alongside the explanation.</li>
+          <li><b>Show + tell:</b> screenshots are always visible alongside the explanation.</li>
           <li><b>Maintainable:</b> content comes from a single JS data file.</li>
           <li><b>Accessible:</b> you can close with Escape or by clicking outside the drawer.</li>
         </ul>
@@ -328,7 +327,7 @@
           <li>The spinedrop recalculates position/sizes from the real layout, so it stays aligned on any screen.</li>
           <li>The sliders switch to a vertical layout on small screens so, content stays readable and your thumb can actually use it.</li>
           <li>The project drawer stays usable on mobile, the content scrolls inside the drawer, without the page fighting it. The layout changes to horizontal split.</li>
-          <li>All in all the UI rules stay consistent; the same interactions still apply, they ust adapt layout-wise.</li>
+          <li>All in all the UI rules stay consistent; the same interactions still apply, they just adapt layout-wise.</li>
           <li>Feel free to test it out if you're on desktop, just resize the window, and you'll see!</li>
         </ul>
       `
@@ -482,13 +481,13 @@
           <ul>
             <li><b>Movement first:</b> responsive traversal that feels good at speed.</li>
             <li><b>Spellweaving:</b> element + modifiers + form, resolved instantly at runtime.</li>
-            <li><b>Custom visuals:</b> a dash effect that “tears reality” using URP + depth-based projection.</li>
+            <li><b>Custom visuals:</b> a dash effect that tears reality using URP + depth-based projection.</li>
           </ul>
 
           <h3>What I cared about</h3>
           <ul>
-            <li>No input lag, no stutters, no “systems fighting each other”.</li>
-            <li>Everything data-driven where it matters, and deterministic to debug.</li>
+            <li>Inputs should feel immediate, and the whole thing stays completely stable under stress.</li>
+            <li>It’s structured so behavior is consistent, which makes debugging way less painful.</li>
           </ul>
 
           <h3>Note:</h3>
@@ -543,8 +542,8 @@
             <li>Easy to expand: add data + tuning, not new branching code paths.</li>
             <li>Stays responsive even while sprinting, sliding, and dashing.</li>
           </ul>
-          <p>Note: The original scope had 8 elements, 8 modifiers and 8 forms, resulting in 73 728 different unique combinations.</p>
-          <p>Needlessly to say, I cut it down to 4 of each and made Modifiers pure math/code. Tuning the endresult down to 40 unique combinations.</p>
+          <p>Note: The original scope had 8 elements, 8 modifiers and 8 forms, resulting in 73 728 unique combinations.</p>
+          <p>Needless to say, I cut it down to 4 of each and made Modifiers pure math/code. Tuning the end result down to 40 unique combinations.</p>
           
         `
             },
