@@ -5,7 +5,7 @@
         links: { live: "", github: "https://github.com/ChristianMuley/ScrumProject.git", video: "" },
         slides: [
             {
-                img: "/img/PrulariaHero.png",
+                img: "/img/Prularia.webm",
                 html: `
           <h3>Project overview (2-week Scrum build)</h3>
           <p>
